@@ -1,36 +1,48 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_card/app.dart';
+import 'package:flutter/services.dart';
 import 'package:social_media_card/constants/constatns.dart';
-import 'package:social_media_card/screens/home.dart';
-import 'package:social_media_card/screens/register.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppConstant.themeColor,
+          title: "Create New Accoount".text.make(),
+          centerTitle: true,
+        ),
         backgroundColor: AppConstant.themeColor,
         body: SingleChildScrollView(
           child: Container(
             child: Column(
               children: [
-                "Opinion".text.size(50).white.make(),
                 Container(
-                  height: 250,
+                  height: 150,
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/img/logo.png",
-                    height: 150,
-                    width: 150,
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: CircleAvatar(
+                          radius: 50,
+                        ),
+                      ),
+                      Center(
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.camera_enhance),
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Container(
@@ -46,6 +58,22 @@ class _LoginState extends State<Login> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30)),
                         child: VxTextField(
+                          hint: "Full Name",
+                          keyboardType: TextInputType.name,
+                          borderColor: Colors.transparent,
+                          icon: Icon(Icons.person),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: VxTextField(
+                          keyboardType: TextInputType.emailAddress,
                           hint: "Email Address",
                           borderColor: Colors.transparent,
                           icon: Icon(Icons.mail),
@@ -60,8 +88,25 @@ class _LoginState extends State<Login> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30)),
                         child: VxTextField(
+                          hint: "Phone Number",
+                          keyboardType: TextInputType.phone,
+                          borderColor: Colors.transparent,
+                          icon: Icon(Icons.phone),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: VxTextField(
                           hint: "Password",
+                          keyboardType: TextInputType.visiblePassword,
                           isPassword: true,
+                          obscureText: false,
                           borderColor: Colors.transparent,
                           icon: Icon(Icons.lock),
                         ),
@@ -75,10 +120,6 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(context,
-                              CupertinoPageRoute(builder: (_) => App()));
-                        },
                         child: Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.symmetric(
@@ -88,31 +129,8 @@ class _LoginState extends State<Login> {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(30)),
-                            child: "Login".text.size(20).bold.make()),
+                            child: "Create Account".text.size(20).bold.make()),
                       ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            "Don't Have an Account ? ".text.white.make(),
-                            GestureDetector(
-                              onTap: () {
-                                FocusScopeNode currentFocus =
-                                    FocusScope.of(context);
-
-                                if (!currentFocus.hasPrimaryFocus) {
-                                  currentFocus.unfocus();
-                                }
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (_) => Register()));
-                              },
-                              child: "Click here".text.amber200.make(),
-                            )
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ),

@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_card/constants/constatns.dart';
 import 'package:social_media_card/screens/comments.dart';
+import 'package:social_media_card/screens/friends.dart';
 import 'package:social_media_card/screens/home.dart';
+import 'package:social_media_card/screens/search.dart';
 import 'package:social_media_card/screens/upload.dart';
 
 class BottomNavigationBarWithMD extends StatefulWidget {
@@ -23,7 +25,9 @@ class _BottomNavigationBarWithMDState extends State<BottomNavigationBarWithMD>
   late CurvedAnimation curve;
 
   final iconList = <IconData>[
-    Icons.person,
+    Icons.home,
+    Icons.search,
+    Icons.person_add,
     Icons.chat,
   ];
 
@@ -41,6 +45,8 @@ class _BottomNavigationBarWithMDState extends State<BottomNavigationBarWithMD>
         controller: pageViewController,
         children: [
           Home(),
+          SearchScreen(),
+          FriendScreen(),
           Comment(),
         ],
         onPageChanged: (index) {
@@ -54,7 +60,7 @@ class _BottomNavigationBarWithMDState extends State<BottomNavigationBarWithMD>
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppConstant.themeColor,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => Upload()));
+          Navigator.push(context, CupertinoPageRoute(builder: (_) => Upload()));
         },
         child: Container(
           padding: EdgeInsets.only(left: 2),

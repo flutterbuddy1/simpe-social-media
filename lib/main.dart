@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media_card/app.dart';
 import 'package:social_media_card/constants/constatns.dart';
@@ -6,6 +8,8 @@ import 'package:social_media_card/screens/home.dart';
 import 'package:social_media_card/screens/login.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: AppConstant.themeColor));
   runApp(MyApp());
 }
 
@@ -13,10 +17,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       title: 'Opinion',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
+            body1: GoogleFonts.oswald(textStyle: textTheme.body1),
+          ),
           accentColor: AppConstant.themeColor,
           primaryColor: AppConstant.themeColor,
           inputDecorationTheme: InputDecorationTheme(
@@ -57,13 +65,16 @@ class _SplashState extends State<Splash> {
 
   initlization() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      loggedIn = prefs.getBool("loggedIn")!;
-    });
+    bool? loggin = prefs.getBool("loggedIn");
+    if (loggin != null) {
+      setState(() {
+        loggedIn = loggin;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return loggedIn ? App() : Login();
+    return loggedIn == true && loggedIn != null ? App() : Login();
   }
 }
